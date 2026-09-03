@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace对应dao接口的全路径-->
+<mapper namespace="com.jxd.eas.dao.IStudentDao">
+
+    <insert id="addOne" parameterType="student" useGeneratedKeys="true" keyProperty="id">
+        insert into student (name,sex,birthday,grade,collegeID)
+        values (#{name},#{sex},#{birthday},#{grade},#{collegeID})
+    </insert>
+
+    <update id="updateOne" parameterType="student">
+        update student set name = #{name},sex = #{sex},birthday = #{birthday},grade = #{grade},collegeID = #{collegeID} where id = #{id}
+    </update>
+
+    <delete id="deleteBatch">
+        delete from student where id in (
+            <foreach collection="array" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </delete>
+
+    <select id="selectStudentWithCollege" resultType="map">
+        select id,name,sex,birthday,grade,collegeName from student s inner join college g on s.collegeID = g.collegeID
+            <if test="name != null">
+                where name like '%' #{name} '%'
+            </if>
+            order by id
+    </select>
+    <select id="selectOne" resultType="student">
+        select id,name,sex,birthday,grade,collegeID from student where id = #{id}
+    </select>
+
+    <select id="selectByPage" resultType="map">
+        <bind name="offset" value="(page - 1) * limit"></bind>
+        select id,name,sex,birthday,grade,collegeName from student s inner join college g on s.collegeID = g.collegeID
+            <if test="name != null">
+                where name like '%' #{name} '%'
+            </if>
+            order by id
+            limit #{offset},#{limit}
+    </select>
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace对应dao接口的全路径-->
+<mapper namespace="com.jxd.eas.dao.IUserLoginDao">
+
+    <insert id="addOne">
+        insert into userlogin (userName,role) values (#{id},#{role})
+    </insert>
+
+    <update id="updatePwd">
+        update userlogin set password = #{newPwd} where userName = #{userName} and password = #{oldPwd}
+    </update>
+
+    <update id="resetPwd">
+        update userlogin set password = DEFAULT where userName in (
+            <foreach collection="array" item="userName" separator=",">
+                #{userName}
+            </foreach>
+            )
+    </update>
+
+    <delete id="delOne">
+        delete from userlogin where userName = CAST(#{id} AS CHAR)
+    </delete>
+
+
+    <select id="selectByNameAndPwd" resultType="userLogin">
+        select userName,password,role from userlogin where userName = #{uname} and password = #{pwd} and role = #{role}
+    </select>
+
+    <select id="selectAll" resultType="userLogin">
+        select userName,password from userlogin
+        <if test="userName != null">
+            where userName like '%' #{userName} '%'
+        </if>
+        order by userID
+    </select>
+    <select id="selectByPage" resultType="userLogin">
+        <bind name="offset" value="(page - 1) * limit"></bind>
+        select userName,password from userlogin
+        <if test="userName != null">
+            where userName like '%' #{userName} '%'
+        </if>
+        order by userID
+        limit #{offset},#{limit}
+    </select>
+
+
+</mapper>

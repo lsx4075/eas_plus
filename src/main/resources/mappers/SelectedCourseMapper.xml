@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace对应dao接口的全路径-->
+<mapper namespace="com.jxd.eas.dao.ISelectedCourseDao">
+
+    <insert id="addOne">
+        insert into selectedcourse (courseID, studentID) values (#{courseID}, #{studentID})
+    </insert>
+
+    <update id="updateMark" parameterType="selectedCourse">
+        update selectedcourse set mark = #{mark} where courseID = #{courseID} and studentID = #{studentID}
+    </update>
+
+    <delete id="deleteOne">
+        delete from selectedcourse where courseID = #{courseID} and studentID = #{studentID}
+    </delete>
+
+    <delete id="deleteByStudentID">
+        delete from selectedcourse where studentID = #{studentID}
+    </delete>
+
+    <select id="selectStudentsByCourseID" resultType="map">
+        select distinct studentID,name,mark from selectedcourse s
+        inner join student t on s.studentID = t.id
+        <if test="courseID != 0">
+            where courseID = #{courseID}
+        </if>
+        order by studentID
+    </select>
+
+    <select id="selectOne" resultType="selectedCourse">
+        select courseID, studentID, mark from selectedcourse where courseID = #{courseID} and studentID = #{studentID}
+    </select>
+
+    <select id="selectOneByCourseID" resultType="selectedCourse">
+        select courseID, studentID, mark from selectedcourse where courseID = #{courseID} limit 1
+    </select>
+
+</mapper>

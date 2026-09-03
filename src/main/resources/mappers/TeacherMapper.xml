@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace对应dao接口的全路径-->
+<mapper namespace="com.jxd.eas.dao.ITeacherDao">
+
+    <insert id="addOne" parameterType="teacher" useGeneratedKeys="true" keyProperty="id">
+        insert into teacher (name,sex,birthday,degree,title,grade,collegeID) values
+        (#{name},#{sex},#{birthday},#{degree},#{title},#{grade},#{collegeID})
+    </insert>
+
+    <update id="updateOne" parameterType="teacher">
+        update teacher set name = #{name},sex = #{sex},birthday = #{birthday},degree = #{degree},title = #{title},grade = #{grade},collegeID = #{collegeID} where id = #{id}
+    </update>
+
+    <delete id="deleteBatch">
+        delete from teacher where id in (
+            <foreach collection="array" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </delete>
+
+    <select id="selectTeacherWithCollege" resultType="map">
+        select id,name,sex,birthday,degree,title,grade,collegeName from teacher t inner join college g on t.collegeID = g.collegeID
+            <if test="name != null">
+                where name like '%' #{name} '%'
+            </if>
+            order by id
+    </select>
+
+    <select id="selectTeachers" resultType="map">
+        select id,name from teacher t inner join college g on t.collegeID = g.collegeID where t.collegeID = #{collegeID}
+    </select>
+
+    <select id="selectByPage" resultType="map">
+        <bind name="offset" value="(page - 1) * limit"></bind>
+        select id,name,sex,birthday,degree,title,grade,collegeName from teacher t inner join college g on t.collegeID = g.collegeID
+            <if test="name != null">
+                where name like '%' #{name} '%'
+            </if>
+            order by id
+            limit #{offset},#{limit}
+    </select>
+
+    <select id="selectOne" resultType="teacher">
+        select id,name,sex,birthday,degree,title,grade,collegeID from teacher where id = #{id}
+    </select>
+
+</mapper>

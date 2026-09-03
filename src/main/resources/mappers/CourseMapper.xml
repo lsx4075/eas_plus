@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace对应dao接口的全路径-->
+<mapper namespace="com.jxd.eas.dao.ICourseDao">
+
+    <sql id="baseCol">
+        s.id,courseName,t.name,courseTime,classroom,classWeek,courseType,score
+    </sql>
+
+    <insert id="addOne" parameterType="course">
+        insert into course (courseName,teacherID,courseTime,classroom,classWeek,courseType,collegeID,score) values
+        (#{courseName},#{teacherID},#{courseTime},#{classroom},#{classWeek},#{courseType},#{collegeID},#{score})
+    </insert>
+
+    <update id="updateOne" parameterType="course">
+        update course set courseName = #{courseName},teacherID = #{teacherID},courseTime = #{courseTime},classroom = #{classroom},
+                        classWeek = #{classWeek},courseType = #{courseType},collegeID = #{collegeID},score = #{score} where id = #{id}
+    </update>
+
+    <delete id="deleteBatch">
+        delete from course where id in (
+            <foreach collection="array" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </delete>
+
+    <select id="selectOne" resultType="course">
+        select id,courseName,teacherID,courseTime,classroom,classWeek,courseType,collegeID,score from course
+        where id = #{id}
+    </select>
+
+    <select id="selectCourseWithCollege" resultType="map">
+        select s.id,courseName,t.name,courseTime,classroom,classWeek,courseType,score from course s
+        inner join teacher t on s.teacherID = t.id
+        <if test="courseName != null">
+            where  courseName like '%' #{courseName} '%'
+        </if>
+        order by s.id
+    </select>
+
+    <select id="selectCourseByTeacherID" resultType="map">
+        select <include refid="baseCol"></include> from course s
+        inner join teacher t on s.teacherID = t.id
+        where teacherID = #{teacherID}
+        <if test="courseName != null">
+            and courseName like '%' #{courseName} '%'
+        </if>
+        order by s.id
+    </select>
+
+    <select id="selectCourseOfStudent" resultType="map">
+        select <include refid="baseCol"></include>,sc.mark from course s
+        inner join selectedcourse sc on s.id = sc.courseID
+        inner join teacher t on s.teacherID = t.id
+        where sc.studentID = #{studentID} and sc.mark
+        <if test="completed == true">
+            is not null
+        </if>
+        <if test="completed == false">
+            is null
+        </if>
+    </select>
+
+
+</mapper>

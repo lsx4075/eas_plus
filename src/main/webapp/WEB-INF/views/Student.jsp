@@ -2,15 +2,15 @@
   Created by IntelliJ IDEA.
   User: 喜洋洋酱
   Date: 2026/8/26
-  Time: 19:01
+  Time: 19:00
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>教师操作页面</title>
-    <link href="layui/css/layui.css" rel="stylesheet">
-    <script src="js/jquery-2.1.1.js"></script>
+    <title>学生操作页面</title>
+    <link href="../../layui/css/layui.css" rel="stylesheet">
+    <script src="../../js/jquery-2.1.1.js"></script>
     <style>
         .admin-header {
             height: 60px;
@@ -52,7 +52,6 @@
             height: 100%;
             border: none;
         }
-        /* 美化侧边栏配色（与学生端完全一致） */
         .layui-side {
             background-color: #ffffff !important;
         }
@@ -79,22 +78,24 @@
 <%@include file="logControl.jsp"%>
 <c:if test="${not empty uname}">
     <div class="admin-header">
-        教务信息查询系统（教师）
+        教务信息查询系统（学生）
         <span>${uname}</span>
     </div>
     <div class="layui-layout layui-layout-admin">
         <div class="layui-side layui-bg-black">
             <ul class="layui-nav layui-nav-tree" lay-filter="adminNav">
-                <li class="layui-nav-item layui-this"><a href="javascript:;" data-url="/getCoursesOfTeacher">我的课程</a></li>
+                <li class="layui-nav-item layui-this"><a href="javascript:;" data-url="/getCoursesForStu">所有课程</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="/getCoursesUncompleted">已选课程</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="/getCoursesFinished">已修课程</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" data-url="ChangePwd.jsp">修改密码</a></li>
                 <li class="layui-nav-item"><a href="/logOut" onclick="return confirm('确定要退出系统吗？')">退出系统</a></li>
             </ul>
         </div>
         <div class="layui-body">
-            <iframe id="iframeMain" src="/getCoursesOfTeacher" style="width: 100%" height="100%"></iframe>
+            <iframe id="iframeMain" src="/getCoursesForStu" style="width: 100%" height="100%"></iframe>
         </div>
     </div>
-    <script src="layui/layui.js"></script>
+    <script src="../../layui/layui.js"></script>
     <script>
         layui.use(function(){
             var element = layui.element;

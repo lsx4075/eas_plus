@@ -3,9 +3,9 @@
 <html>
 <head>
     <title>登录</title>
-    <link href="layui/css/layui.css" rel="stylesheet">
-    <script src="layui/layui.js"></script>
-    <script src="js/jquery-2.1.1.js"></script>
+    <link href="../../layui/css/layui.css" rel="stylesheet">
+    <script src="../../layui/layui.js"></script>
+    <script src="../../js/jquery-2.1.1.js"></script>
     <style>
         body { background: #F8F8F8; display: flex; justify-content: center; align-items: center; height: 100vh; }
         .login-box {

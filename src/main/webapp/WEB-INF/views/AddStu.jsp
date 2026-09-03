@@ -1,33 +1,33 @@
-<%@ page import="com.jxd.eas.model.Teacher" %>
+<%@ page import="com.jxd.eas.model.Student" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>添加或修改教师信息</title>
-    <script src="js/jquery-2.1.1.js"></script>
+    <title>添加或修改学生信息</title>
+    <script src="../../js/jquery-2.1.1.js"></script>
     <%@ include file="commonStyle.jsp" %>
 </head>
 <body>
 <div>
-    <h3>教师基本信息</h3>
-    <c:if test="${empty teacher}">
-    <form action="/addTeacher" method="post">
+    <h3>学生基本信息</h3>
+    <c:if test="${empty student}">
+    <form action="/addStu" method="post">
         </c:if>
-        <c:if test="${not empty teacher}">
-        <form action="/editTeacher" method="post">
+        <c:if test="${not empty student}">
+        <form action="/editStu" method="post">
             </c:if>
-            <input type="hidden" name="id" value="${teacher.id}">
+            <input type="hidden" name="id" value="${student.id}">
             <table class="form-table">
                 <tr>
                     <td>姓名:</td>
-                    <td><input type="text" name="name" class="form-control" value="${teacher.name}"></td>
+                    <td><input type="text" name="name" class="form-control" value="${student.name}"></td>
                 </tr>
                 <tr>
                     <td>性别:</td>
                     <td>
                         <%
-                            Teacher teacher = (Teacher) request.getAttribute("teacher");
-                            if (teacher == null || ((teacher != null) && ("男".equals(teacher.getSex())))) {
+                            Student student = (Student) request.getAttribute("student");
+                            if (student == null || ((student != null) && ("男".equals(student.getSex())))) {
                         %>
                         <label><input type="radio" name="sex" value="男" checked> 男</label>
                         <label><input type="radio" name="sex" value="女"> 女</label>
@@ -43,19 +43,11 @@
                 </tr>
                 <tr>
                     <td>出生日期:</td>
-                    <td><input type="date" name="birthday" class="form-control" value="${teacher.birthday}"></td>
+                    <td><input type="date" name="birthday" class="form-control" value="${student.birthday}"></td>
                 </tr>
                 <tr>
-                    <td>入职时间:</td>
-                    <td><input type="date" name="grade" class="form-control" value="${teacher.grade}"></td>
-                </tr>
-                <tr>
-                    <td>学历:</td>
-                    <td><input type="text" name="degree" class="form-control" value="${teacher.degree}"></td>
-                </tr>
-                <tr>
-                    <td>职称:</td>
-                    <td><input type="text" name="title" class="form-control" value="${teacher.title}"></td>
+                    <td>入学时间:</td>
+                    <td><input type="date" name="grade" class="form-control" value="${student.grade}"></td>
                 </tr>
                 <tr>
                     <td>所属学院：</td>
@@ -74,7 +66,7 @@
 </div>
 <script>
     window.onload = function () {
-        var collegeID = '${teacher.collegeID}'
+        var collegeID = '${student.collegeID}'
         $.ajax({
             url: "/getCollegeAjax",
             type: "get",
@@ -93,7 +85,7 @@
         })
     }
     function cancel() {
-        window.parent.document.getElementById("iframeMain").src = "/getTeachers";
+        window.parent.document.getElementById("iframeMain").src = "/getStudents";
     }
 </script>
 </body>

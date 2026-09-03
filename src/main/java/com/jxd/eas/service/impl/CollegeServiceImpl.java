@@ -3,8 +3,8 @@ package com.jxd.eas.service.impl;
 import com.jxd.eas.dao.ICollegeDao;
 import com.jxd.eas.model.College;
 import com.jxd.eas.service.ICollegeService;
-import com.jxd.eas.util.SqlSessionUtil;
-import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,13 +15,12 @@ import java.util.List;
  * @Date 2026/8/25 14:29
  * @Version 1.0
  */
+@Service
 public class CollegeServiceImpl implements ICollegeService {
+    @Autowired
     private ICollegeDao collegeDao;
     @Override
     public List<College> getColleges() {
-        SqlSession sqlSession = SqlSessionUtil.getSession();
-        collegeDao = sqlSession.getMapper(ICollegeDao.class);
-
         return collegeDao.selectColleges();
     }
 }

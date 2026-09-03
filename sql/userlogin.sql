@@ -1,0 +1,12 @@
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (40, '10018', '123', 0);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (39, '1036', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (21, '1018', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (14, '10008', '123', 0);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (8, '10003', '123', 0);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (7, '10002', '123', 0);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (6, '10001', '123', 0);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (5, '1004', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (4, '1003', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (3, '1002', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (2, '1001', '123', 1);
+INSERT INTO `userlogin` (`userID`, `userName`, `password`, `role`) VALUES (1, 'admin', '123', 2);

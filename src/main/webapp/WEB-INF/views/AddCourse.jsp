@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>添加或修改课程信息</title>
-    <script src="js/jquery-2.1.1.js"></script>
+    <script src="../../js/jquery-2.1.1.js"></script>
     <%@ include file="commonStyle.jsp" %>
 </head>
 <body>

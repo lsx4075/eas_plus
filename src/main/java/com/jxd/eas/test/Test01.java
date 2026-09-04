@@ -3,6 +3,8 @@ package com.jxd.eas.test;
 import com.jxd.eas.model.Course;
 import com.jxd.eas.service.ICourseService;
 import com.jxd.eas.service.impl.CourseServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +18,8 @@ import java.util.Map;
  */
 public class Test01 {
     public static void main(String[] args) {
-        ICourseService courseService = new CourseServiceImpl();
+        ApplicationContext ac = new ClassPathXmlApplicationContext("spring_mybatis.xml");
+        ICourseService courseService = (ICourseService) ac.getBean("courseServiceImpl");
         /*Course course = new Course(29,"高级口语",1018,"周一","X302",18,"必修",3,2);
         courseService.addCourse(course);
         course.setCourseTime("周二");

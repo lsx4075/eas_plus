@@ -87,7 +87,7 @@
                 <li class="layui-nav-item layui-this"><a href="javascript:;" data-url="/getCoursesForStu">所有课程</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" data-url="/getCoursesUncompleted">已选课程</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" data-url="/getCoursesFinished">已修课程</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="ChangePwd.jsp">修改密码</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="toChangePwd">修改密码</a></li>
                 <li class="layui-nav-item"><a href="/logOut" onclick="return confirm('确定要退出系统吗？')">退出系统</a></li>
             </ul>
         </div>

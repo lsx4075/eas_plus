@@ -61,6 +61,7 @@ public class TeacherController {
     @PostMapping("/addTeacher")
     public String addTeacher(Teacher teacher) {
         teacherService.addTeacher(teacher);
+        userLoginService.addAccount(teacher.getId(),1);
         return "redirect:/getTeachers";
     }
 

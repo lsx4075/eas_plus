@@ -1,39 +1,43 @@
-package com.jxd.eas.servlet;
+package com.jxd.eas.controller;
 
 import com.jxd.eas.model.UserLogin;
 import com.jxd.eas.service.IUserLoginService;
-import com.jxd.eas.service.impl.UserLoginServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * @ClassName LoginServlet
+ * @ClassName LogController
  * @Description TODO
  * @Author 刘双喜
- * @Date 2026/8/24 14:37
+ * @Date 2026/9/4 15:57
  * @Version 1.0
  */
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req,resp);
+@Controller
+@SessionAttributes({"uname"})
+public class LogController {
+    @Autowired
+    private IUserLoginService userLoginService;
+
+    @GetMapping({"/", "/toLogin"})
+    public String toLogin() {
+        return "Login";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uname = req.getParameter("uname");
-        String pwd = req.getParameter("pwd");
-        int role = Integer.parseInt(req.getParameter("user"));
+    @PostMapping("/login")
+    public String login(String uname, String pwd, @RequestParam("user") int role, String remember, Model m, HttpServletResponse resp) {
+        UserLogin userLogin = userLoginService.login(uname, pwd, role);
 
-        IUserLoginService userLoginService = new UserLoginServiceImpl();
-        UserLogin userLogin = userLoginService.login(uname,pwd,role);
         if (userLogin != null) {
             // 记住密码
-            String remember = req.getParameter("remember");
             if ("1".equals(remember)) {
                 Cookie cUname = new Cookie("rememberUname", uname);
                 Cookie cPwd = new Cookie("rememberPwd", pwd);
@@ -47,6 +51,7 @@ public class LoginServlet extends HttpServlet {
                 resp.addCookie(cUname);
                 resp.addCookie(cPwd);
                 resp.addCookie(cRole);
+
             } else {
                 // 未勾选则清除已有Cookie
                 Cookie cUname = new Cookie("rememberUname", "");
@@ -61,24 +66,28 @@ public class LoginServlet extends HttpServlet {
             }
 
             // 将数据存储到session对象中
-            HttpSession session = req.getSession();
-            session.setAttribute("uname",uname);
+            m.addAttribute("uname",uname);
 
             //根据角色重定向到不同页面
             switch (role) {
                 case 0:
-                    resp.sendRedirect("Student.jsp");
-                    break;
+                    return "Student";
                 case 1:
-                    resp.sendRedirect("Teacher.jsp");
-                    break;
+                    return "Teacher";
                 case 2:
-                    resp.sendRedirect("Admin.jsp");
-                    break;
+                    return "Admin";
             }
-        } else {
-            req.setAttribute("msg","用户名或密码错误");
-            req.getRequestDispatcher("Login.jsp").forward(req,resp);
         }
+
+        m.addAttribute("msg", "用户名或密码错误");
+        return "Login";
+    }
+
+    @GetMapping("/logOut")
+    public String logOut(HttpSession session) {
+        //session 销毁
+        //session对象被回收
+        session.invalidate();
+        return "Login";
     }
 }

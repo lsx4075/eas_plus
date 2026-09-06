@@ -93,7 +93,7 @@
                 <li class="layui-nav-item"><a href="javascript:;" data-url="/getTeachers">教师管理</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" data-url="/getStudents">学生管理</a></li>
                 <li class="layui-nav-item"><a href="javascript:;" data-url="/getUsers">账号密码重置</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="ChangePwd.jsp">修改密码</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="/toChangePwd">修改密码</a></li>
                 <li class="layui-nav-item"><a href="/logOut" onclick="return confirm('确定要退出系统吗？')">退出系统</a></li>
             </ul>
         </div>

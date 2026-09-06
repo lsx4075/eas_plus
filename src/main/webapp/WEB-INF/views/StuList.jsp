@@ -74,7 +74,7 @@
         window.location.href = '/getStudents?stuName=' + stuName;
     }
     function newStu() {
-        window.location.href = "/AddStu.jsp"
+        window.location.href = "/toAddStu"
     }
     function editStu(id) {
         window.location.href = "/getOneStu?id=" + id

@@ -47,7 +47,7 @@
 <script>
     function mark(studentID,studentName) {
         var courseID = <%= request.getParameter("CourseID") %>;
-        parent.document.getElementById("iframeMain").src = "Mark.jsp?studentID=" + studentID + "&studentName=" + studentName + "&courseID=" + courseID;
+        parent.document.getElementById("iframeMain").src = "toMark?studentID=" + studentID + "&studentName=" + studentName + "&courseID=" + courseID;
     }
 </script>
 </body>

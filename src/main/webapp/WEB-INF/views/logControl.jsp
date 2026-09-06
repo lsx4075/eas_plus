@@ -6,10 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--session中没有用户名--%>
+&lt;%&ndash;session中没有用户名&ndash;%&gt;
 <c:if test="${empty sessionScope.uname}">
-  <%--重定向到登录页面--%>
-  <c:redirect url="Login.jsp"/>
-</c:if>
+  &lt;%&ndash;重定向到登录页面&ndash;%&gt;
+  <c:redirect url="/toLogin"/>
+</c:if>--%>
+<%--登录拦截已由 LoginControlFilter 统一处理，此处无需重复检查--%>

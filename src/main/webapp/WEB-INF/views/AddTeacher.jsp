@@ -16,7 +16,9 @@
         <c:if test="${not empty teacher}">
         <form action="/editTeacher" method="post">
             </c:if>
-            <input type="hidden" name="id" value="${teacher.id}">
+                <c:if test="${not empty teacher}">
+                    <input type="hidden" name="id" value="${teacher.id}">
+                </c:if>
             <table class="form-table">
                 <tr>
                     <td>姓名:</td>

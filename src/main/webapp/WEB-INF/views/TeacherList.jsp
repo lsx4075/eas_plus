@@ -79,7 +79,7 @@
         window.location.href = '/getTeachers?teacherName=' + teacherName;
     }
     function newTeacher() {
-        window.location.href = "/AddTeacher.jsp"
+        window.location.href = "/toAddTeacher"
     }
     function editTeacher(id) {
         window.location.href = "/getOneTeacher?id=" + id

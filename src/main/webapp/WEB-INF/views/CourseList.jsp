@@ -64,7 +64,7 @@
     }
 
     function newCourse() {
-        window.location.href = "/AddCourse.jsp"
+        window.location.href = "/toAddCourse"
     }
 
     function editCourse(id) {

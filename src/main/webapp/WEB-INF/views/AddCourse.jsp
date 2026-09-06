@@ -22,7 +22,9 @@
         <c:if test="${not empty course}">
         <form action="/editCourse" method="post">
             </c:if>
-            <input type="hidden" name="id" value="${course.id}">
+                <c:if test="${not empty course}">
+                    <input type="hidden" name="id" value="${course.id}">
+                </c:if>
             <table class="form-table">
                 <tr>
                     <td>课程名称:</td>
@@ -114,7 +116,8 @@
     //学院下拉框变化时，加载对应的老师下拉框
     function loadTeachers(collegeID, selectedTeacherID) {
         $.ajax({
-            url: "/getTeacherWithIDByCollegeID?collegeID=" + collegeID,
+            url: "/getTeacherWithIDByCollegeID",
+            data: {collegeID: collegeID},
             type: "get",
             async: true,
             dataType: 'json',

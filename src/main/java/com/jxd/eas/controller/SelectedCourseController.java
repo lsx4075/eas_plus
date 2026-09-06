@@ -1,5 +1,6 @@
 package com.jxd.eas.controller;
 
+import com.jxd.eas.model.SelectedCourse;
 import com.jxd.eas.service.ISelectedCourseService;
 import com.jxd.eas.service.impl.SelectedCourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName SelectedCourseController
@@ -41,5 +44,27 @@ public class SelectedCourseController {
         selectedCourseService.dropCourse(courseID, studentID);
 
         return "redirect:/getCoursesUncompleted";
+    }
+
+    @GetMapping("/getSelectedCourse")
+    public String getSelectedCourse(Model m, int courseID) {
+        List<Map<String,Object>> list = selectedCourseService.getStudentsByCourseID(courseID);
+
+        m.addAttribute("studentsByCourseIDList", list);
+        return "StudentsByCourseID";
+    }
+
+    @GetMapping("/toMark")
+    public String toMark(String courseID, String studentName, String studentID, Model m) {
+        m.addAttribute("studentID", studentID);
+        m.addAttribute("studentName", studentName);
+        m.addAttribute("courseID", courseID);
+        return "Mark";
+    }
+    @PostMapping ("/mark")
+    public String mark(SelectedCourse selectedCourse) {
+        selectedCourseService.mark(selectedCourse);
+
+        return "redirect:/getSelectedCourse?courseID=" + selectedCourse.getCourseID();
     }
 }

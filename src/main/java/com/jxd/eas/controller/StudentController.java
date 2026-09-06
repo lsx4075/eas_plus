@@ -59,6 +59,7 @@ public class StudentController {
     @PostMapping("/addStu")
     public String addStu(Student student) {
         studentService.addStu(student);
+        userLoginService.addAccount(student.getId(),0);
         return "redirect:/getStudents";
     }
     @GetMapping("/getOneStu")

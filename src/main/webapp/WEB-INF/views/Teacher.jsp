@@ -86,7 +86,7 @@
         <div class="layui-side layui-bg-black">
             <ul class="layui-nav layui-nav-tree" lay-filter="adminNav">
                 <li class="layui-nav-item layui-this"><a href="javascript:;" data-url="/getCoursesOfTeacher">我的课程</a></li>
-                <li class="layui-nav-item"><a href="javascript:;" data-url="ChangePwd.jsp">修改密码</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" data-url="toChangePwd">修改密码</a></li>
                 <li class="layui-nav-item"><a href="/logOut" onclick="return confirm('确定要退出系统吗？')">退出系统</a></li>
             </ul>
         </div>

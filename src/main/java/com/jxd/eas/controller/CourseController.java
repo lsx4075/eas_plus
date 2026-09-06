@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -73,5 +74,43 @@ public class CourseController {
 
         courseService.removeBatch(ids);
         return "redirect:/getCourses";
+    }
+
+    @GetMapping("/getCoursesForStu")
+    public String getCoursesForStu(String courseNameForStu,Model m) {
+        List<Map<String,Object>> courseForStuList = courseService.getMaps(courseNameForStu);
+
+        m.addAttribute("courseForStuList",courseForStuList);
+        if (courseNameForStu != null) {
+            m.addAttribute("courseNameForStu",courseNameForStu);
+        }
+        return "CourseForStu";
+    }
+
+    @GetMapping("/getCoursesUncompleted")
+    public String getCoursesUncompleted(Model m, HttpSession session) {
+        int studentID = Integer.parseInt((String) session.getAttribute("uname"));
+        // 获取该学生未完成的课程列表
+        List<Map<String, Object>> list = courseService.getCourseOfStudent(studentID, false);
+        m.addAttribute("courseUncompletedList", list);
+        return "CoursesChosen";
+    }
+
+    @GetMapping("/getCoursesFinished")
+    public String getCoursesFinished(Model m, HttpSession session) {
+        int studentID = Integer.parseInt((String) session.getAttribute("uname"));
+        List<Map<String, Object>> list = courseService.getCourseOfStudent(studentID, true);
+        list.forEach(map -> System.out.println(map.get("mark")));
+        m.addAttribute("courseFinishedList", list);
+        return "CourseFinished";
+    }
+
+    @GetMapping("/getCoursesOfTeacher")
+    public String getCoursesOfTeacher(Model m, String courseName, HttpSession session) {
+        String userName = (String)session.getAttribute("uname");
+        int teacherID = Integer.parseInt(userName);
+        List<Map<String,Object>> list = courseService.getCourseByTeacherID(teacherID,courseName);
+        m.addAttribute("coursesOfTeacherList",list);
+        return "CoursesOfTeacher";
     }
 }

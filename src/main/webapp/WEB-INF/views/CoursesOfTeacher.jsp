@@ -61,7 +61,7 @@
     }
 
     function querySelectedCourse(courseID) {
-        parent.document.getElementById("iframeMain").src = "/getSelectedCourse?CourseID=" + courseID;
+        parent.document.getElementById("iframeMain").src = "/getSelectedCourse?courseID=" + courseID;
     }
 </script>
 </body>

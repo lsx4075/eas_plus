@@ -3,7 +3,6 @@ package com.jxd.eas.controller;
 import com.jxd.eas.model.Course;
 import com.jxd.eas.service.ICourseService;
 import com.jxd.eas.service.ISelectedCourseService;
-import com.jxd.eas.service.impl.SelectedCourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

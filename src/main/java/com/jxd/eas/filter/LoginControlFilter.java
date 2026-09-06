@@ -37,8 +37,8 @@ public class LoginControlFilter implements Filter {
         //获取session
         HttpSession session = request.getSession();
         if (session.getAttribute("uname") == null) {
-            //未登录
-            response.sendRedirect("Login.jsp");
+            //未登录，重定向到控制器登录入口
+            response.sendRedirect(request.getContextPath() + "/toLogin");
         } else {
             //已登录
             filterChain.doFilter(request,response);
